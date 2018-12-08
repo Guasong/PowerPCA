@@ -1,5 +1,6 @@
 import numpy as np
 import math
+
 class PowerMethod(object):
     def __init__(self, input_matrix, k):
         # np.set_printoptions(precision=30)

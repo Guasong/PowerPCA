@@ -1,6 +1,6 @@
-from PIL import Image
 import numpy as np
 import PowerMethod
+from PIL import Image
 
 class ImageCompresser(object):
     def __init__(self, k, img, out='output.png'):
