@@ -1,3 +1,5 @@
+# This script allows us to generate PCA image compressions in a grid format as seen in the paper
+
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import os
@@ -56,5 +58,5 @@ axarr[1,2].imshow(ic5.getOriginalArr())
 axarr[1,2].set_title('uncompressed')
 axarr[1,2].axis('off')
 
-plt.savefig("out_img/mackey-2x2.png", dpi=500)
+plt.savefig("out_img/mackey-2x3.png", dpi=500)
 # plt.show()

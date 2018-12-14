@@ -1,7 +1,7 @@
-# This script is a PCA implementation using the power method
+# This script is a PCA implementation using the naive SVD
 
 import numpy as np
-import PowerMethod
+from svd import svd
 from PIL import Image
 
 class ImageCompresser(object):
@@ -26,38 +26,19 @@ class ImageCompresser(object):
             self.o = self.o.convert('RGB')
         return np.array(self.o)
 
-    def format(self, p):
-        s = []
-        u = []
-        vh = []
-        for i in range(len(p)):
-            s.append(p[i][0])
-            vh.append(p[i][1])
-            u.append(p[i][2])
-        s = np.array(s)
-        u = np.array(u).T
-        vh = np.array(vh)
-        return s, u, vh
-
     def compress(self):
         print('Compressing', self.img_name, 'with k =', self.k, '...')
         for i in range(self.img_ori_arr.shape[2]-1):
             RGB = ['R','G','B']
             channel = self.img_ori_arr[...,i]
-            p = PowerMethod.PowerMethod(channel, self.k)
             print(RGB[i], 'channel shape: ', channel.shape)
-            result = p.power_method()
-            # u, s, vh = np.linalg.svd(channel)
-            s, u, vh = self.format(result)
-
-            # s[-216:-1]=np.zeros(215)
+            u, s, vh = svd(channel)
+            s[self.k:-1]=np.zeros(s.shape[0]-self.k-1)
             s = np.diag(s)
-            s = np.pad(s, ((0,u.shape[0]-s.shape[0]), (0,vh.shape[1]-s.shape[0])), 'constant')
-            u = np.pad(u, ((0,0),(0,u.shape[0]-u.shape[1])), 'constant')
-            vh = np.pad(vh, ((0,vh.shape[1]-vh.shape[0]),(0,0)), 'constant')
             print(u.shape)
             print(s.shape)
             print(vh.shape)
+            # uncomment and modify the below lines if not input not square to fit svd outputs
             # s_new = np.zeros((9,220))
             # s = np.vstack((s, s_new))
             self.output[...,i] = np.clip(np.matmul(np.matmul(u, s),vh), 0, 255)

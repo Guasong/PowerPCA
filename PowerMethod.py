@@ -1,9 +1,9 @@
 import numpy as np
 import math
+from datetime import datetime
 
 class PowerMethod(object):
     def __init__(self, input_matrix, k):
-        # np.set_printoptions(precision=30)
         self.input = input_matrix
         self.result = []
         self.k = k
@@ -64,11 +64,3 @@ class PowerMethod(object):
             self.sinvector, self.leftsinvector = [], []
             self.k -= 1
         return self.result
-
-# T = PowerMethod([[ 0.041,0.815,0.245,0.054,0.249,0.534,0.753,0.307,0.877,0.429],
-#  [ 0.918,0.846,0.249,0.262,0.133,0.32, 0.446,0.122,0.164,0.711],
-#  [ 0.139,0.701,0.726,0.094,0.036,0.695,0.325,0.29, 0.373,0.692],
-#  [ 0.644,0.067,0.032,0.896,0.047,0.55, 0.062,0.568,0.204,0.275],
-#  [ 0.631,0.412,0.232,0.415,0.335,0.508,0.393,0.549,0.076,0.698]]
-# , 5)
-#print(T.power_method())
