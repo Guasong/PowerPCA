@@ -1,7 +1,10 @@
 import numpy as np
 import math
 from datetime import datetime
-
+# How to use the code:
+# First, input your matrix A as a list of lists and an interger k like: T = PowerMethod(A,k)
+# T stands for the object we create
+# Then, use function T.power_method() and print(T.power_method()) to get the SVD of A.
 class PowerMethod(object):
     def __init__(self, input_matrix, k):
         self.input = input_matrix
@@ -50,17 +53,26 @@ class PowerMethod(object):
 
     def power_method(self):
         while self.k > 0:
+            # First calculate ATA
             ATransA = np.matmul(np.transpose(self.input), self.input)
+            # Get the largest eigenvalue of ATA and calculate its sqrt to compute
+            # the first singular value
             (DominantEv, self.sinvector) = self.getDominantEv(ATransA)
             singularvalue = math.sqrt(DominantEv)
             Av = np.matmul(self.input, self.sinvector)
+            # Singular value times left singular vector equals Av
             self.leftsinvector = (Av / singularvalue)
+            # To calculate the ATA − σ1u1v1T
             templeft =np.array([[i] for i in list(self.leftsinvector)])
             tempright = np.array([list(self.sinvector)])
             self.input = self.input - singularvalue * (np.matmul(templeft, tempright))
+            # Change the arrays back to lists and output them
             self.leftsinvector = list(self.leftsinvector)
             self.sinvector = list(self.sinvector)
             self.result.append([singularvalue, self.sinvector, self.leftsinvector])
             self.sinvector, self.leftsinvector = [], []
             self.k -= 1
         return self.result
+
+# T = PowerMethod([[ 0.041,0.815,0.245,0.054,0.249,0.534,0.753,0.307,0.877,0.429],[0.918,0.846,0.249,0.262,0.133,0.32, 0.446,0.122,0.164,0.711],[ 0.139,0.701,0.726,0.094,0.036,0.695,0.325,0.29, 0.373,0.692],[ 0.644,0.067,0.032,0.896,0.047,0.55, 0.062,0.568,0.204,0.275],[ 0.631,0.412,0.232,0.415,0.335,0.508,0.393,0.549,0.076,0.698]], 5)
+# print(T.power_method())
