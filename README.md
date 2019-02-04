@@ -1,6 +1,9 @@
 # Description  
 An implementation of PCA using Power Method in computing SVD  
 
+# Paper   
+The paper detailing the approaches and analysis used in this project can be found at: https://github.com/johnzhang1999/PowerPCA/blob/master/docs/21_241_Final_Paper__Power_Method_for_SVD%20FINAL%20-%20Yiwen%20Zhang%2C%20John%20Zhang.pdf   
+
 # Code Structure  
 .  
 ├── ImgOps.py //implementation of PCA using `power_method()` in `PowerMethod.py`  
